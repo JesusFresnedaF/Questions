@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     TextView question, solution;
-    Button buttonT, buttonF, buttonNext;
+    Button buttonT, buttonF;
+    ImageButton buttonNext, buttonPrev;
 
     private boolean userAns[];
     private boolean correctAns[];
@@ -41,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
 
         buttonNext = findViewById(R.id.buttonNext);
         buttonNext.setOnClickListener(nextClicked);
+
+        buttonPrev = findViewById(R.id.buttonPrev);
+        buttonPrev.setOnClickListener(prevClicked);
 
         solution = findViewById(R.id.solution);
 
@@ -83,6 +88,16 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    public View.OnClickListener prevClicked = new View.OnClickListener(){
+        public void onClick(View v){
+            actualQuestion = (actualQuestion - 1) % numQuestions;
+            if(actualQuestion < 0){
+                actualQuestion = numQuestions - 1;
+            }
+            question.setText(actualQuestion+ ". "+questions[actualQuestion]);
+            solution.setText("");
+        }
+    };
 
 
 }
