@@ -82,17 +82,34 @@ public class MainActivity extends AppCompatActivity {
     };
     public View.OnClickListener nextClicked = new View.OnClickListener(){
         public void onClick(View v){
-            actualQuestion = (actualQuestion + 1) % numQuestions;
-            question.setText(actualQuestion+ ". "+questions[actualQuestion]);
-            solution.setText("");
+            if(actualQuestion > 0){
+                buttonPrev.setEnabled(true);
+            }
+            if(actualQuestion == numQuestions - 1){
+                buttonNext.setEnabled(false);
+                buttonNext.setAlpha(0.5F);
+            }
+            else{
+                actualQuestion = (actualQuestion + 1);
+                question.setText(actualQuestion+ ". "+questions[actualQuestion]);
+                solution.setText("");
+            }
         }
     };
 
     public View.OnClickListener prevClicked = new View.OnClickListener(){
         public void onClick(View v){
-            actualQuestion = (actualQuestion - 1) % numQuestions;
-            if(actualQuestion < 0){
-                actualQuestion = numQuestions - 1;
+            if(actualQuestion < numQuestions){
+                buttonPrev.setEnabled(true);
+            }
+            if(actualQuestion <=  0){
+                buttonPrev.setEnabled(false);
+                buttonPrev.setAlpha(0.5F);
+            }
+            else{
+                actualQuestion = (actualQuestion - 1);
+                question.setText(actualQuestion+ ". "+questions[actualQuestion]);
+                solution.setText("");
             }
             question.setText(actualQuestion+ ". "+questions[actualQuestion]);
             solution.setText("");
